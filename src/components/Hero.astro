@@ -1,0 +1,49 @@
+---
+import { baseUrl } from '@/utils/functions';
+---
+
+<section class='am-super-container'>
+  {
+    [...new Array(5)].map((_, i) => (
+      <aside class='single-container'>
+        <img src={baseUrl(`/assets/m${i + 1}.avif`)} alt='image' />
+      </aside>
+    ))
+  }
+</section>
+
+<script>
+  import { $$ } from '@/utils/functions';
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  const $allSingleContainer = $$('.single-container');
+
+  $allSingleContainer.forEach(singleContainer => {
+    ScrollTrigger.create({
+      trigger: singleContainer,
+      start: 'top top',
+      pin: true,
+      pinSpacing: false
+    });
+  });
+</script>
+
+<style>
+  section {
+    height: 100vh;
+  }
+
+  .single-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+</style>
